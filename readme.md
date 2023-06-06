@@ -5,8 +5,15 @@ Create for your hierarchy:
 - 10 statements for updating.
 - 10 statements for deletions.
 + 5 alter table.                (done)
-- 1 big statement to join all tables in the database.
-- 5 statements with left, right, inner, outer joins.
-- 7 statements with aggregate functions and group by and without having.
-- 7 statements with aggregate functions and group by and with having.
++ 1 big statement to join all tables in the database.
++ 5 statements with left, right, inner, outer joins.
++ 7 statements with aggregate functions and group by and without having.
++ 7 statements with aggregate functions and group by and with having.
+
++ created hierarchy model
++ connected to DB
++ began to create DAO hierarchy
++ created CRUD methods for the class Department
+
+
 
