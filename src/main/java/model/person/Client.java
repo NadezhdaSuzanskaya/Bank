@@ -6,8 +6,8 @@ public class Client extends Person{
     private String address;
     private ClientType clientType;
 
-    public Client(String personName, String personSurname, String phone) {
-        super(personName, personSurname, phone);
+    public Client() {
+
     }
 
     public Client(String personName, String personSurname, String phone, int idClient, String passport, String address, ClientType clientType) {

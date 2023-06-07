@@ -57,7 +57,7 @@ public class JobTitleDao implements IDaoJobTitle {
             LOGGER.info(statement);
         }
         catch (SQLException e) {
-            LOGGER.error("Error executing SQL query", e);
+            LOGGER.error("Error executing SQL 'delete from job_title' query", e);
         }
     }
 
@@ -82,10 +82,35 @@ public class JobTitleDao implements IDaoJobTitle {
                 jobList.add(jobTitle);
             }
         } catch (SQLException e) {
-            LOGGER.error("Error executing SQL query", e);
+            LOGGER.error("Error executing SQL 'SELECT * FROM job_title' query", e);
         }
         LOGGER.info(jobList);
         return jobList;
+    }
+
+    @Override
+    public JobTitle getById(int id) throws SQLException {
+        loadProperties();
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
+            PreparedStatement statement = connection.prepareStatement("select * from job_title where id_job_title = ?");
+            statement.setInt(1, id );
+         //   LOGGER.info(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                jobTitle.setIdJobTitle(result.getInt("id_job_title"));
+                String jobNameString = result.getString("name").trim();
+                for (EmployeeJobTitle enumValue : EmployeeJobTitle.values()) {
+                    if (enumValue.getEmployeeJobTitle().equalsIgnoreCase(jobNameString)) {
+                        jobTitle.setJobName(enumValue);
+                        break;
+                    }
+                }
+            }
+        }
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL query", e);
+        }
+        return jobTitle;
     }
 
     @Override
@@ -114,4 +139,5 @@ public class JobTitleDao implements IDaoJobTitle {
         }
         return jobTitle;
     }
+
 }

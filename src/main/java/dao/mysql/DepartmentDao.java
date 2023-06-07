@@ -99,7 +99,7 @@ public class DepartmentDao implements IDaoDepartment {
     }
 
     @Override
-    public List<Department> getAllElements() throws SQLException {
+    public List<Department> getAllElements(){
         List<Department> departmentList = new ArrayList<>(); // Create a list  for departments
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
@@ -119,5 +119,25 @@ public class DepartmentDao implements IDaoDepartment {
         }
         LOGGER.info(departmentList);
         return departmentList;
+    }
+
+    @Override
+    public Department getById(int id) throws SQLException {
+        loadProperties();
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
+            PreparedStatement statement = connection.prepareStatement("select * from department where id_department = ?");
+            statement.setString(1, "%" + id + "%");
+      //      LOGGER.info(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                department.setIdDepartment(result.getInt("id_department"));
+                department.setDepartmentName(result.getString("name"));
+                department.setDepartmentAddress(result.getString("address"));
+            }
+        }
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL query", e);
+        }
+        return department;
     }
 }

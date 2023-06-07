@@ -7,5 +7,6 @@ public interface IDao <T, D>{
     void create (T t) throws SQLException;
     void remove ( int id) throws SQLException;
     List<T> getAllElements() throws SQLException;
+    D getById(int id)throws SQLException;
 
 }

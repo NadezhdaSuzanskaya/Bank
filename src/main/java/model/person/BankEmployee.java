@@ -5,8 +5,8 @@ public class BankEmployee extends Person{
     private JobTitle jobTitle;
     private Department department;
 
-    public BankEmployee(String personName, String personSurname, String phone) {
-        super(personName, personSurname, phone);
+    public BankEmployee() {
+
     }
 
     public BankEmployee(String personName, String personSurname, String phone, int idEmployee, JobTitle jobTitle, Department department) {
