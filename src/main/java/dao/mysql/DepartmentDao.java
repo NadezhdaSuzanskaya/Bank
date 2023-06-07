@@ -1,4 +1,4 @@
-package dao.sql;
+package dao.mysql;
 
 import dao.interfaces.IDaoDepartment;
 import model.person.Department;
@@ -10,11 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class DepartmentDao implements IDaoDepartment {
     Logger LOGGER = LogManager.getLogger();
     Properties properties = new Properties();
+    Department department = new Department();
 
     private void loadProperties() {
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -28,8 +31,6 @@ public class DepartmentDao implements IDaoDepartment {
 
     @Override
     public Department getDepartmentByAddress(String address) throws SQLException {
-        Department department = new Department();
-
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from department where address like ?");
@@ -43,12 +44,14 @@ public class DepartmentDao implements IDaoDepartment {
             }
             LOGGER.info("Department address1: " + department.getDepartmentAddress());
         }
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL query", e);
+        }
         return department;
     }
 
     @Override
-    public Department create(Department dep) throws SQLException {
-        Department department = new Department();
+    public void create(Department dep) throws SQLException {
 
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
@@ -59,11 +62,12 @@ public class DepartmentDao implements IDaoDepartment {
             LOGGER.info(statement);
             statement.execute();
         }
-        return department;
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'insert into department' query", e);
+        }
     }
     @Override
     public Department updateDepartmentName(String name, int id) throws SQLException {
-        Department department = new Department();
 
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
@@ -73,12 +77,14 @@ public class DepartmentDao implements IDaoDepartment {
             LOGGER.info(statement);
             statement.execute();
         }
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'update department' query", e);
+        }
         return department;
     }
 
     @Override
     public void remove( int id) throws SQLException {
-        Department department_del = new Department();
 
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
@@ -87,7 +93,31 @@ public class DepartmentDao implements IDaoDepartment {
             statement.execute();
             LOGGER.info(statement);
         }
+        catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'delete from department' query", e);
+        }
     }
 
-
+    @Override
+    public List<Department> getAllElements() throws SQLException {
+        List<Department> departmentList = new ArrayList<>(); // Create a list  for departments
+        loadProperties();
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
+            PreparedStatement statement = connection.prepareStatement("select * from department ");
+            LOGGER.info(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Department department = new Department(); // Create a new Department object
+                department.setIdDepartment(result.getInt("id_department"));
+                department.setDepartmentName(result.getString("name"));
+                department.setDepartmentAddress(result.getString("address"));
+                departmentList.add(department); // Add the department to the list
+            }
+        }
+        catch (SQLException e) {
+            LOGGER.error("Error executing 'select * from department' query", e);
+        }
+        LOGGER.info(departmentList);
+        return departmentList;
+    }
 }
