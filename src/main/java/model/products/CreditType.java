@@ -6,6 +6,9 @@ public class CreditType extends BankProductType{
     private int idCreditType;
     private boolean earalyRepayment;
 
+    public CreditType() {
+    }
+
     public CreditType(ProductTypeName typeName, double persent, int term, int idCreditType, boolean earalyRepayment) {
         super(typeName, persent, term);
         this.idCreditType = idCreditType;

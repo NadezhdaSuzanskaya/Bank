@@ -1,7 +1,9 @@
 import dao.mysql.*;
 import model.enums.ClientTypeName;
 import model.enums.EmployeeJobTitle;
+import model.enums.ProductTypeName;
 import model.person.*;
+import model.products.CreditType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,11 +42,18 @@ public class Bank {
         clientType.remove(4);
 
         ClientDao client = new ClientDao();
-      //  client.create(new Client("TEST_SURNAME", "TEST_NAME", "+564769635",4, "PP6535789","TEST_ADDR", type));
+        client.create(new Client("TEST_SURNAME", "TEST_NAME", "+564769635",4, "PP6535789","TEST_ADDR", type));
         client.updateClientSurnameByPassport("TEST111", "PP6535789");
         client.getById(1);
         client.getAllElements();
         client.remove(4);
+
+        CreditTypeDao creditType = new CreditTypeDao();
+      //  creditType.create(new CreditType(ProductTypeName.EASY_CREDIT, 12.5,6,3,true));
+        creditType.updateTermAndPercentByName("Easy Credit", 6,11);
+        creditType.getAllElements();
+        creditType.getById(1);
+        //creditType.remove(3);
     }
 
 }

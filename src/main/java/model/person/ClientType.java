@@ -29,4 +29,5 @@ public class ClientType {
     public void setClientType(ClientTypeName clientType) {
         this.clientType = clientType;
     }
+
 }
