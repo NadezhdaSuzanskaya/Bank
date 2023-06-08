@@ -3,15 +3,32 @@ import model.enums.ClientTypeName;
 import model.enums.EmployeeJobTitle;
 import model.enums.ProductTypeName;
 import model.person.*;
+import model.products.Credit;
 import model.products.CreditType;
+import model.products.Deposit;
+import model.products.DepositType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Bank {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ParseException {
         Logger LOGGER = LogManager.getLogger();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilStartDate = dateFormat.parse("2023-01-06");
+        java.util.Date utilEndDate = dateFormat.parse("2023-06-30");
+        java.util.Date utilNewStartDate = dateFormat.parse("2024-01-06");
+        java.util.Date utilNewEndDate = dateFormat.parse("2024-06-30");
+
+        // Convert java.util.Date to java.sql.Date
+        Date startDate = new Date(utilStartDate.getTime());
+        Date endDate = new Date(utilEndDate.getTime());
+        Date newStartDate = new Date(utilNewStartDate.getTime());
+        Date newEndDate = new Date(utilNewEndDate.getTime());
 
         DepartmentDao dep = new DepartmentDao();
         dep.create(new Department(5, "TEST_NAME", "TEST_ADDR"));
@@ -44,16 +61,45 @@ public class Bank {
         ClientDao client = new ClientDao();
         client.create(new Client("TEST_SURNAME", "TEST_NAME", "+564769635",4, "PP6535789","TEST_ADDR", type));
         client.updateClientSurnameByPassport("TEST111", "PP6535789");
-        client.getById(1);
+        Client cl =  client.getById(2);
         client.getAllElements();
         client.remove(4);
 
         CreditTypeDao creditType = new CreditTypeDao();
-      //  creditType.create(new CreditType(ProductTypeName.EASY_CREDIT, 12.5,6,3,true));
+        creditType.create(new CreditType(ProductTypeName.EASY_CREDIT, 12.5,6,3,true));
         creditType.updateTermAndPercentByName("Easy Credit", 6,11);
         creditType.getAllElements();
-        creditType.getById(1);
-        //creditType.remove(3);
+        CreditType typeCred= creditType.getById(1);
+        creditType.remove(3);
+
+        DepositTypeDao depositType = new DepositTypeDao();
+        depositType.create(new DepositType( ProductTypeName.SAVE_MONEY, 10.00, 18,3, true, false));
+        DepositType typeDep=   depositType.getById(2);
+        depositType.getAllElements();
+        depositType.getDepositTypeByName("START");
+        depositType.remove(3);
+
+        DepositDao depDao = new DepositDao();
+        depDao.create(new Deposit(2,5555.00, startDate, endDate, typeDep,cl));
+        depDao.getById(1);
+        depDao.updateDatesByClientID(2,newStartDate, newEndDate);
+        depDao.getAllElements();
+        depDao.remove(2);
+
+        CreditDao credDao = new CreditDao();
+        credDao.create(new Credit(4,2323.23, startDate, endDate, typeCred,cl));
+        credDao.getById(1);
+        credDao.updateCreditDatesByClientID(4,newStartDate, newEndDate);
+        credDao.getAllElements();
+        credDao.remove(4);
+
+        SalaryDao salaryDao = new SalaryDao();
+        salaryDao.create(new Salary(4,3000.11, 123, bankEmployee));
+        salaryDao.updateSalaryByID(4,5432.11);
+        salaryDao.getById(1);
+        salaryDao.getAllElements();
+        salaryDao.remove(4);
+
     }
 
 }

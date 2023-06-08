@@ -38,7 +38,7 @@ public class CreditTypeDao implements IDaoCreditType {
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("insert into credit_type values (?,?,?,?,?) ");
             statement.setInt(1, creditType.getIdCreditType());
-            statement.setString(2, creditType.getTypeName().getCredit());
+            statement.setString(2, creditType.getTypeName().getProduct());
             statement.setDouble(3, creditType.getPersent());
             statement.setInt(4, creditType.getTerm());
             statement.setBoolean(5, creditType.isEralyRepayment());
@@ -78,11 +78,14 @@ public class CreditTypeDao implements IDaoCreditType {
                 creditType.setIdCreditType(result.getInt("id_credit_type"));
                 String creditTypeString = result.getString("name").trim();
                 for (ProductTypeName enumValue : ProductTypeName.values()) {
-                    if (enumValue.getCredit().equalsIgnoreCase(creditTypeString)) {
+                    if (enumValue.getProduct().equalsIgnoreCase(creditTypeString)) {
                         creditType.setTypeName(enumValue);
                         break;
                     }
                 }
+                creditType.setPersent(result.getDouble("persent"));
+                creditType.setTerm(result.getInt("term"));
+                creditType.setEralyRepayment(result.getBoolean("early_repayment"));
                 typeList.add(creditType);
             }
         } catch (SQLException e) {
@@ -95,17 +98,17 @@ public class CreditTypeDao implements IDaoCreditType {
     @Override
     public CreditType getById(int id) throws SQLException {
         loadProperties();
+        CreditType creditType = new CreditType();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM credit_type where id_credit_type=?");
-            LOGGER.info(statement);
             statement.setInt(1, id );
+            LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                CreditType creditType = new CreditType();
                 creditType.setIdCreditType(result.getInt("id_credit_type"));
                 String creditTypeString = result.getString("name").trim();
                 for (ProductTypeName enumValue : ProductTypeName.values()) {
-                    if (enumValue.getCredit().equalsIgnoreCase(creditTypeString)) {
+                    if (enumValue.getProduct().equalsIgnoreCase(creditTypeString)) {
                         creditType.setTypeName(enumValue);
                         break;
                     }

@@ -13,13 +13,13 @@ public enum ProductTypeName {
     START("Start Deposit");
 
 
-    private final String credit;
+    private final String product;
 
     ProductTypeName(String credit) {
-        this.credit = credit;
+        this.product = credit;
     }
 
-    public String getCredit() {
-        return credit;
+    public String getProduct() {
+        return product;
     }
 }

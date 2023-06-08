@@ -7,6 +7,9 @@ public class DepositType extends  BankProductType{
     private boolean replenishment;
     private boolean earlywithdrawal;
 
+    public DepositType() {
+    }
+
     public DepositType(ProductTypeName typeName, double persent, int term, int idDeposityType, boolean replenishment, boolean earlywithdrawal) {
         super(typeName, persent, term);
         this.idDeposityType = idDeposityType;

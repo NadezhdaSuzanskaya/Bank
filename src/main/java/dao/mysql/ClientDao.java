@@ -98,14 +98,15 @@ public class ClientDao implements IDaoClient {
     @Override
     public Client getById(int id) throws SQLException {
         ClientTypeDao clientDao = new ClientTypeDao();
+        Client client = new Client();
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM client where id_client = ?");
-            LOGGER.info(statement);
             statement.setInt(1, id );
+            LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Client client = new Client();
+
                 client.setIdClient(result.getInt("id_client"));
                 client.setPersonSurname(result.getString("surname"));
                 client.setPersonName(result.getString("name"));

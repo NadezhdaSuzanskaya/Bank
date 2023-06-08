@@ -2,7 +2,7 @@ package model.products;
 
 import model.person.Client;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Deposit {
     private int idDeposit;
