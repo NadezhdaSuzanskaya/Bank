@@ -1,0 +1,218 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="bank">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creditType" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="bankProductType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="typeName"/>
+                                        <xs:element type="xs:double" name="persent"/>
+                                        <xs:element type="xs:int" name="term"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element type="xs:int" name="idCreditType"/>
+                            <xs:element type="xs:boolean" name="earalyRepayment"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="depositType" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="bankProductType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="typeName"/>
+                                        <xs:element type="xs:double" name="persent"/>
+                                        <xs:element type="xs:int" name="term"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element type="xs:int" name="idDeposityType"/>
+                            <xs:element type="xs:boolean" name="replenishment"/>
+                            <xs:element type="xs:boolean" name="earlywithdrawal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="deposit">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:int" name="idDeposit"/>
+                            <xs:element type="xs:double" name="initial_sum"/>
+                            <xs:element type="xs:date" name="start_date"/>
+                            <xs:element type="xs:date" name="end_date"/>
+                            <xs:element name="depositType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="bankProductType">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="typeName"/>
+                                                    <xs:element type="xs:double" name="persent"/>
+                                                    <xs:element type="xs:int" name="term"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:int" name="idDeposityType"/>
+                                        <xs:element type="xs:boolean" name="replenishment"/>
+                                        <xs:element type="xs:boolean" name="earlywithdrawal"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="client">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:int" name="idClient"/>
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="15"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="surname">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="15"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="passport"/>
+                                        <xs:element name="phone">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="10"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="address"/>
+                                        <xs:element name="clientType">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:int" name="idClientType"/>
+                                                    <xs:element type="xs:string" name="clientType"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="credit" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:int" name="idCredit"/>
+                            <xs:element type="xs:double" name="sum"/>
+                            <xs:element type="xs:date" name="start_date"/>
+                            <xs:element type="xs:date" name="end_date"/>
+                            <xs:element name="creditType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="bankProductType">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="typeName"/>
+                                                    <xs:element type="xs:double" name="persent"/>
+                                                    <xs:element type="xs:int" name="term"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:int" name="idCreditType"/>
+                                        <xs:element type="xs:boolean" name="earalyRepayment"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="client">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:int" name="idClient"/>
+                                        <xs:element name="name">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="15"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="surname">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="15"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="passport"/>
+                                        <xs:element name="phone">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="10"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="address"/>
+                                        <xs:element name="clientType">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:int" name="idClientType"/>
+                                                    <xs:element type="xs:string" name="clientType"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="client" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:int" name="idClient"/>
+                            <xs:element name="name">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="15"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="surname">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="15"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element type="xs:string" name="passport"/>
+                            <xs:element name="phone">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element type="xs:string" name="address"/>
+                            <xs:element name="clientType">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:int" name="idClientType"/>
+                                        <xs:element name="clientType">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:maxLength value="10"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

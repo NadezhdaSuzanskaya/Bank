@@ -8,6 +8,8 @@ import model.products.Deposit;
 import model.products.DepositType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import services.CardService;
+import services.DepositService;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -132,6 +134,12 @@ public class Bank {
         operationsDao.updateOperationSumById(5,400.99);
         operationsDao.getAllElements();
         operationsDao.remove(5);
+
+        CardService cardService = new CardService();
+        cardService.getCard(1);
+
+        DepositService depositService = new DepositService();
+        depositService.getDeposits(1);
     }
 
 }

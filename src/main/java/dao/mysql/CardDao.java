@@ -141,4 +141,37 @@ public class CardDao implements IDaoCard {
             LOGGER.error("Error executing SQL 'update card's  day limits by id' query", e);
         }
     }
+
+    @Override
+    public Card getCardByAccountID(int accountID) {
+        AccountDao accDao = new AccountDao();
+        Card card = new Card();
+        loadProperties();
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM card where id_account=?");
+            statement.setInt(1, accountID);
+            LOGGER.info(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                card.setIdCard(result.getInt("id_card"));
+                String cardNameString = result.getString("name").trim();
+                for (CardName enumValue : CardName.values()) {
+                    if (enumValue.getCardName().equalsIgnoreCase(cardNameString)) {
+                        card.setCardName(enumValue);
+                        break;
+                    }
+                }
+                card.setEndDate(result.getDate("end_date"));
+                card.setOnlineTransactions(result.getBoolean("online_transactions"));
+                card.setDayLimits(result.getDouble("day_limits"));
+                Account acc = accDao.getById((result.getInt("id_account")));
+                if (acc != null) {
+                    card.setAccount(acc);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'SELECT * FROM card by id' query", e);
+        }
+        return card;
+    }
 }

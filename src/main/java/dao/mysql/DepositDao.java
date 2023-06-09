@@ -143,4 +143,35 @@ public class DepositDao implements IDaoDeposit {
             LOGGER.error("Error executing SQL 'update deposit by id' query", e);
         }
     }
+
+    @Override
+    public Deposit getDepositByClientID(int clientID) {
+        ClientDao clientDao = new ClientDao();
+        DepositTypeDao depTypeDao = new DepositTypeDao();
+        Deposit dep = new Deposit();
+        loadProperties();
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM deposit where id_client=?");
+            statement.setInt(1, clientID);
+            LOGGER.info(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                dep.setIdDeposit(result.getInt("id_deposit"));
+                dep.setInitial_sum(result.getDouble("initial_amount"));
+                dep.setStart_date(result.getDate("start_date"));
+                dep.setEnd_date(result.getDate("end_date"));
+                DepositType depType = depTypeDao.getById((result.getInt("id_deposit_type")));
+                if (depType != null) {
+                    dep.setDepositType(depType);
+                }
+                Client client = clientDao.getById((result.getInt("id_client")));
+                if (client != null) {
+                    dep.setClient(client);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'SELECT * FROM deposit by client_id' query", e);
+        }
+        return dep;
+    }
 }
