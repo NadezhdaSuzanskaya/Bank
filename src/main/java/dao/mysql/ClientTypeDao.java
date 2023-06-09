@@ -2,9 +2,7 @@ package dao.mysql;
 
 import dao.interfaces.IDaoClientType;
 import model.enums.ClientTypeName;
-import model.enums.EmployeeJobTitle;
 import model.person.ClientType;
-import model.person.JobTitle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +29,7 @@ public class ClientTypeDao implements IDaoClientType {
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void create(ClientType clientType) throws SQLException {
         loadProperties();
@@ -40,8 +39,7 @@ public class ClientTypeDao implements IDaoClientType {
             statement.setString(2, clientType.getClientType().getClientType());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("insert into client_type", e);
         }
     }
@@ -54,15 +52,14 @@ public class ClientTypeDao implements IDaoClientType {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from client_type' query", e);
         }
     }
 
     @Override
     public List<ClientType> getAllElements() throws SQLException {
-        List<ClientType> typeList = new ArrayList<>(); // Create a list  for departments
+        List<ClientType> typeList = new ArrayList<>();
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM client_type");
@@ -83,7 +80,6 @@ public class ClientTypeDao implements IDaoClientType {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM client_type' query", e);
         }
-        LOGGER.info(typeList);
         return typeList;
     }
 
@@ -92,8 +88,8 @@ public class ClientTypeDao implements IDaoClientType {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from client_type where id_client_type = ?");
-            statement.setInt(1, id );
-               LOGGER.info(statement);
+            statement.setInt(1, id);
+            LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 clientType.setIdClientType(result.getInt("id_client_type"));
@@ -105,20 +101,18 @@ public class ClientTypeDao implements IDaoClientType {
                     }
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL query", e);
         }
         return clientType;
     }
 
     @Override
-    public ClientType getClientTypeByClientType(String type) throws SQLException {
+    public ClientType getClientTypeByClientType(String type) {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from client_type where client_type = ?");
             statement.setString(1, "%" + type + "%");
-     //       LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 clientType.setIdClientType(result.getInt("id_client_type"));
@@ -129,7 +123,6 @@ public class ClientTypeDao implements IDaoClientType {
                         break;
                     }
                 }
-
             }
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'select * from client_type by client_type ' query", e);

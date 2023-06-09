@@ -2,7 +2,6 @@ package dao.mysql;
 
 import dao.interfaces.IDaoDeposit;
 import model.person.Client;
-import model.person.ClientType;
 import model.products.Deposit;
 import model.products.DepositType;
 import org.apache.logging.log4j.LogManager;
@@ -32,21 +31,21 @@ public class DepositDao implements IDaoDeposit {
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void create(Deposit deposit) throws SQLException {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("insert into deposit values (?,?,?,?,?,?)");
             statement.setInt(1, deposit.getIdDeposit());
-            statement.setDouble(2,deposit.getInitial_sum());
+            statement.setDouble(2, deposit.getInitial_sum());
             statement.setDate(3, deposit.getStart_date());
             statement.setDate(4, deposit.getEnd_date());
             statement.setInt(5, deposit.getDepositType().getIdDeposityType());
             statement.setInt(6, deposit.getClient().getIdClient());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'insert into deposit' query", e);
         }
     }
@@ -59,9 +58,8 @@ public class DepositDao implements IDaoDeposit {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
-            LOGGER.error("Error executing SQL 'delete from depoosit' query", e);
+        } catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'delete from deposit' query", e);
         }
     }
 
@@ -85,7 +83,7 @@ public class DepositDao implements IDaoDeposit {
                 DepositType depType = depTypeDao.getById((result.getInt("id_deposit_type")));
                 if (depType != null) {
                     deposit.setDepositType(depType);
-                    LOGGER.info("2222222222222: "+depType.getIdDeposityType());
+                    ;
                 }
                 Client client = clientDao.getById((result.getInt("id_client")));
                 if (client != null) {
@@ -97,7 +95,6 @@ public class DepositDao implements IDaoDeposit {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM deposit' query", e);
         }
-        LOGGER.info(deposits);
         return deposits;
     }
 
@@ -109,7 +106,7 @@ public class DepositDao implements IDaoDeposit {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM deposit where id_deposit=?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
@@ -142,8 +139,7 @@ public class DepositDao implements IDaoDeposit {
             statement.setInt(3, 2);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update deposit by id' query", e);
         }
     }

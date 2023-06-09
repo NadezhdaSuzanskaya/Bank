@@ -1,9 +1,7 @@
 package dao.mysql;
 
 import dao.interfaces.IDaoDepositType;
-import model.enums.ClientTypeName;
 import model.enums.ProductTypeName;
-import model.products.CreditType;
 import model.products.DepositType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,6 @@ public class DepositTypeDao implements IDaoDepositType {
 
     Logger LOGGER = LogManager.getLogger();
     Properties properties = new Properties();
-    DepositType depositType = new DepositType();
 
     private void loadProperties() {
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -46,8 +43,7 @@ public class DepositTypeDao implements IDaoDepositType {
             statement.setBoolean(6, depositType.isEarlywithdrawal());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("insert into deposit_type", e);
         }
     }
@@ -60,8 +56,7 @@ public class DepositTypeDao implements IDaoDepositType {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from deposit_type' query", e);
         }
     }
@@ -93,7 +88,6 @@ public class DepositTypeDao implements IDaoDepositType {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM deposit_type' query", e);
         }
-        LOGGER.info(typeList);
         return typeList;
     }
 
@@ -103,11 +97,10 @@ public class DepositTypeDao implements IDaoDepositType {
         DepositType depType = new DepositType();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM deposit_type where id_deposit_type=?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-
                 depType.setIdDeposityType(result.getInt("id_deposit_type"));
                 String creditTypeString = result.getString("name").trim();
                 for (ProductTypeName enumValue : ProductTypeName.values()) {
@@ -128,7 +121,7 @@ public class DepositTypeDao implements IDaoDepositType {
     }
 
     @Override
-    public DepositType getDepositTypeByName(String name) throws SQLException {
+    public DepositType getDepositTypeByName(String name) {
         loadProperties();
         DepositType depType = new DepositType();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
@@ -137,7 +130,6 @@ public class DepositTypeDao implements IDaoDepositType {
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-
                 depType.setIdDeposityType(result.getInt("id_deposit_type"));
                 String creditTypeString = result.getString("name").trim();
                 for (ProductTypeName enumValue : ProductTypeName.values()) {

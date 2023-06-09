@@ -30,7 +30,7 @@ public class DepartmentDao implements IDaoDepartment {
     }
 
     @Override
-    public Department getDepartmentByAddress(String address) throws SQLException {
+    public Department getDepartmentByAddress(String address) {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from department where address like ?");
@@ -117,7 +117,6 @@ public class DepartmentDao implements IDaoDepartment {
         catch (SQLException e) {
             LOGGER.error("Error executing 'select * from department' query", e);
         }
-        LOGGER.info(departmentList);
         return departmentList;
     }
 
@@ -127,7 +126,6 @@ public class DepartmentDao implements IDaoDepartment {
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from department where id_department = ?");
             statement.setString(1, "%" + id + "%");
-      //      LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 department.setIdDepartment(result.getInt("id_department"));

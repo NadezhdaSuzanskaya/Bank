@@ -1,7 +1,6 @@
 import dao.mysql.*;
-import model.enums.ClientTypeName;
-import model.enums.EmployeeJobTitle;
-import model.enums.ProductTypeName;
+import model.account.*;
+import model.enums.*;
 import model.person.*;
 import model.products.Credit;
 import model.products.CreditType;
@@ -100,6 +99,39 @@ public class Bank {
         salaryDao.getAllElements();
         salaryDao.remove(4);
 
+        CurrencyDao currencyDao = new CurrencyDao();
+        currencyDao.create(new Currency(5,"TEST_NAME","CODE"));
+        currencyDao.getCurrencyByCode("USD");
+        Currency currency= currencyDao.getById(2);
+        currencyDao.getAllElements();
+        currencyDao.remove(5);
+
+        OperationTypeDao operationTypeDao = new OperationTypeDao();
+        operationTypeDao.create(new OperationType(6, OperationsTypeName.CASH));
+        OperationType operationType= operationTypeDao.getById(1);
+        operationTypeDao.getAllElements();
+        operationTypeDao.getOperationTypeByName("Payment");
+        operationTypeDao.remove(6);
+
+        AccountDao accountDao = new AccountDao();
+        accountDao.create(new Account(5, "1122334455",startDate, currency,cl ,bankEmployee));
+        Account acc = accountDao.getById(1);
+       // accountDao.getAllElements();
+        accountDao.remove(5);
+
+        CardDao cardDao = new CardDao();
+        cardDao.create(new Card(5, CardName.MASTERCARD, startDate, true, 5000,acc ));
+        cardDao.updateDayLimitsById(5,7000);
+        cardDao.getById(1);
+        //cardDao.getAllElements();
+        cardDao.remove(5);
+
+        OperationsDao operationsDao = new OperationsDao();
+        operationsDao.create(new Operations(5,400,startDate, operationType, acc));
+        operationsDao.getById(1);
+        operationsDao.updateOperationSumById(5,400.99);
+        operationsDao.getAllElements();
+        operationsDao.remove(5);
     }
 
 }

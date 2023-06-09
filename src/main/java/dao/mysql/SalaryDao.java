@@ -2,8 +2,6 @@ package dao.mysql;
 
 import dao.interfaces.IDaoSalary;
 import model.person.BankEmployee;
-import model.person.Department;
-import model.person.JobTitle;
 import model.person.Salary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +38,9 @@ public class SalaryDao implements IDaoSalary {
             statement.setInt(2, salary.getBankEmployee().getIdEmployee());
             statement.setDouble(3, salary.getSalarySum());
             statement.setDouble(4, salary.getBonus());
-
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'insert into salary' query", e);
         }
     }
@@ -57,17 +53,15 @@ public class SalaryDao implements IDaoSalary {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from salary' query", e);
         }
     }
 
     @Override
     public List<Salary> getAllElements() throws SQLException {
-        List<Salary> salaries = new ArrayList<>(); // Create a list  for departments
+        List<Salary> salaries = new ArrayList<>();
         BankEmployeeDao employeeDao = new BankEmployeeDao();
-        JobTitleDao jobDao = new JobTitleDao();
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM salary");
@@ -89,7 +83,6 @@ public class SalaryDao implements IDaoSalary {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM salary' query", e);
         }
-        LOGGER.info(salaries);
         return salaries;
     }
 
@@ -102,10 +95,9 @@ public class SalaryDao implements IDaoSalary {
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM salary where id_salary =?");
             LOGGER.info(statement);
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-
                 salary.setIdSalary(result.getInt("id_salary"));
                 salary.setSalarySum(result.getDouble("salary_sum"));
                 salary.setBonus(result.getDouble("bonus"));
@@ -129,8 +121,7 @@ public class SalaryDao implements IDaoSalary {
             statement.setInt(2, id);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update salary by id' query", e);
         }
     }

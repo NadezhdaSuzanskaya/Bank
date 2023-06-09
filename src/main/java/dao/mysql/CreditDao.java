@@ -4,8 +4,6 @@ import dao.interfaces.IDaoCredit;
 import model.person.Client;
 import model.products.Credit;
 import model.products.CreditType;
-import model.products.Deposit;
-import model.products.DepositType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,21 +30,21 @@ public class CreditDao implements IDaoCredit {
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void create(Credit credit) throws SQLException {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("insert into credit values (?,?,?,?,?,?)");
             statement.setInt(1, credit.getIdCredit());
-            statement.setDouble(2,credit.getInitial_sum());
+            statement.setDouble(2, credit.getInitial_sum());
             statement.setDate(3, credit.getStart_date());
             statement.setDate(4, credit.getEnd_date());
             statement.setInt(5, credit.getCreditType().getIdCreditType());
             statement.setInt(6, credit.getClient().getIdClient());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'insert into credit' query", e);
         }
     }
@@ -59,8 +57,7 @@ public class CreditDao implements IDaoCredit {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from credit' query", e);
         }
     }
@@ -96,7 +93,6 @@ public class CreditDao implements IDaoCredit {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM credit' query", e);
         }
-        LOGGER.info(credits);
         return credits;
     }
 
@@ -108,7 +104,7 @@ public class CreditDao implements IDaoCredit {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM credit where id_credit=?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
@@ -142,8 +138,7 @@ public class CreditDao implements IDaoCredit {
             statement.setInt(3, id);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update credit by id' query", e);
         }
     }

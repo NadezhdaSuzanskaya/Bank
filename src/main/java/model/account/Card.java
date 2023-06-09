@@ -10,13 +10,13 @@ public class Card {
     private CardName cardName;
     private Date endDate;
     private boolean onlineTransactions;
-    private boolean dayLimits;
+    private double dayLimits;
     private Account account;
 
     public Card() {
     }
 
-    public Card(int idCard, CardName cardName, Date endDate, boolean onlineTransactions, boolean dayLimits, Account account) {
+    public Card(int idCard, CardName cardName, Date endDate, boolean onlineTransactions, double dayLimits, Account account) {
         this.idCard = idCard;
         this.cardName = cardName;
         this.endDate = endDate;
@@ -57,11 +57,11 @@ public class Card {
         this.onlineTransactions = onlineTransactions;
     }
 
-    public boolean isDayLimits() {
+    public double isDayLimits() {
         return dayLimits;
     }
 
-    public void setDayLimits(boolean dayLimits) {
+    public void setDayLimits(double dayLimits) {
         this.dayLimits = dayLimits;
     }
 

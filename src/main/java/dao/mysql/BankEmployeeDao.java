@@ -1,7 +1,6 @@
 package dao.mysql;
 
 import dao.interfaces.IDaoBankEmployee;
-import model.enums.EmployeeJobTitle;
 import model.person.BankEmployee;
 import model.person.Department;
 import model.person.JobTitle;
@@ -31,6 +30,7 @@ public class BankEmployeeDao implements IDaoBankEmployee {
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void create(BankEmployee bankEmployee) throws SQLException {
         loadProperties();
@@ -44,8 +44,7 @@ public class BankEmployeeDao implements IDaoBankEmployee {
             statement.setInt(6, bankEmployee.getDepartment().getIdDepartment());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL query", e);
         }
     }
@@ -58,15 +57,14 @@ public class BankEmployeeDao implements IDaoBankEmployee {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
-            LOGGER.error("Error executing SQL 'delete from job_title' query", e);
+        } catch (SQLException e) {
+            LOGGER.error("Error executing SQL 'delete from bank_employee' query", e);
         }
     }
 
     @Override
     public List<BankEmployee> getAllElements() throws SQLException {
-        List<BankEmployee> bankEmployees = new ArrayList<>(); // Create a list  for departments
+        List<BankEmployee> bankEmployees = new ArrayList<>();
         DepartmentDao depDao = new DepartmentDao();
         JobTitleDao jobDao = new JobTitleDao();
         loadProperties();
@@ -94,7 +92,6 @@ public class BankEmployeeDao implements IDaoBankEmployee {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM job_title' query", e);
         }
-        LOGGER.info(bankEmployees);
         return bankEmployees;
     }
 
@@ -103,14 +100,11 @@ public class BankEmployeeDao implements IDaoBankEmployee {
         DepartmentDao depDao = new DepartmentDao();
         JobTitleDao jobDao = new JobTitleDao();
         loadProperties();
-
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("select * from bank_employee where id_employee = ?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-
-              //  BankEmployee bankEmployee = new BankEmployee();
                 employee.setIdEmployee(result.getInt("id_employee"));
                 employee.setPersonSurname(result.getString("surname"));
                 employee.setPersonName(result.getString("name"));
@@ -123,17 +117,15 @@ public class BankEmployeeDao implements IDaoBankEmployee {
                 if (job != null) {
                     employee.setJobTitle(job);
                 }
-
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing select * from bank_employee query", e);
         }
         return employee;
     }
 
     @Override
-    public void updateBankEmployeePhoneBySurname(String surname, String phone) throws SQLException {
+    public void updateBankEmployeePhoneBySurname(String surname, String phone) {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("update bank_employee set phone =? where surname =?");
@@ -141,12 +133,8 @@ public class BankEmployeeDao implements IDaoBankEmployee {
             statement.setString(2, surname);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update BankEmployee phone by surname' query", e);
         }
-
     }
-
-
 }

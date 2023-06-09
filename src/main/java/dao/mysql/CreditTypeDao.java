@@ -1,9 +1,7 @@
 package dao.mysql;
 
 import dao.interfaces.IDaoCreditType;
-import model.enums.ClientTypeName;
 import model.enums.ProductTypeName;
-import model.person.ClientType;
 import model.products.CreditType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +18,6 @@ import java.util.Properties;
 public class CreditTypeDao implements IDaoCreditType {
     Logger LOGGER = LogManager.getLogger();
     Properties properties = new Properties();
-    CreditType creditType = new CreditType();
 
     private void loadProperties() {
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -42,11 +39,9 @@ public class CreditTypeDao implements IDaoCreditType {
             statement.setDouble(3, creditType.getPersent());
             statement.setInt(4, creditType.getTerm());
             statement.setBoolean(5, creditType.isEralyRepayment());
-
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("insert into credit_type", e);
         }
     }
@@ -59,15 +54,14 @@ public class CreditTypeDao implements IDaoCreditType {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from credit_type' query", e);
         }
     }
 
     @Override
     public List<CreditType> getAllElements() throws SQLException {
-        List<CreditType> typeList = new ArrayList<>(); // Create a list  for departments
+        List<CreditType> typeList = new ArrayList<>();
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM credit_type");
@@ -91,7 +85,6 @@ public class CreditTypeDao implements IDaoCreditType {
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM credit_type' query", e);
         }
-        LOGGER.info(typeList);
         return typeList;
     }
 
@@ -101,7 +94,7 @@ public class CreditTypeDao implements IDaoCreditType {
         CreditType creditType = new CreditType();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM credit_type where id_credit_type=?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
@@ -130,8 +123,7 @@ public class CreditTypeDao implements IDaoCreditType {
             statement.setString(3, name);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update client surname by passport' query", e);
         }
     }

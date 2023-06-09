@@ -5,6 +5,7 @@ public enum OperationsTypeName {
     REPAYMENT("Loan repayment"),
     PAYMENT("Payment"),
     TRANSFER("Transfer"),
+    CASH("Cash withdrawal"),
     REFILL("Refill");
 
     private final String operationsTypeName;

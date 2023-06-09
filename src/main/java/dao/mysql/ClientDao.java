@@ -18,7 +18,6 @@ public class ClientDao implements IDaoClient {
 
     Logger LOGGER = LogManager.getLogger();
     Properties properties = new Properties();
-    Client client = new Client();
 
     private void loadProperties() {
         try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
@@ -29,6 +28,7 @@ public class ClientDao implements IDaoClient {
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void create(Client client) throws SQLException {
         loadProperties();
@@ -43,8 +43,7 @@ public class ClientDao implements IDaoClient {
             statement.setInt(7, client.getClientType().getIdClientType());
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'insert into client' query", e);
         }
     }
@@ -57,8 +56,7 @@ public class ClientDao implements IDaoClient {
             statement.setInt(1, id);
             statement.execute();
             LOGGER.info(statement);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'delete from client' query", e);
         }
     }
@@ -84,14 +82,11 @@ public class ClientDao implements IDaoClient {
                 if (clientType != null) {
                     client.setClientType(clientType);
                 }
-
-
                 clients.add(client);
             }
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM client' query", e);
         }
-        LOGGER.info(clients);
         return clients;
     }
 
@@ -102,11 +97,10 @@ public class ClientDao implements IDaoClient {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM client where id_client = ?");
-            statement.setInt(1, id );
+            statement.setInt(1, id);
             LOGGER.info(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-
                 client.setIdClient(result.getInt("id_client"));
                 client.setPersonSurname(result.getString("surname"));
                 client.setPersonName(result.getString("name"));
@@ -117,17 +111,15 @@ public class ClientDao implements IDaoClient {
                 if (clientType != null) {
                     client.setClientType(clientType);
                 }
-
             }
         } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'SELECT * FROM client by ID' query", e);
         }
-        LOGGER.info(client);
         return client;
     }
 
     @Override
-    public void updateClientSurnameByPassport(String surname, String passport) throws SQLException {
+    public void updateClientSurnameByPassport(String surname, String passport) {
         loadProperties();
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.password"))) {
             PreparedStatement statement = connection.prepareStatement("update client set surname =? where passport =?");
@@ -135,8 +127,7 @@ public class ClientDao implements IDaoClient {
             statement.setString(2, passport);
             LOGGER.info(statement);
             statement.execute();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             LOGGER.error("Error executing SQL 'update client surname by passport' query", e);
         }
     }
