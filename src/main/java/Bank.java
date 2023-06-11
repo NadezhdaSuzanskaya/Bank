@@ -6,6 +6,7 @@ import model.products.Credit;
 import model.products.CreditType;
 import model.products.Deposit;
 import model.products.DepositType;
+import validation.XMLValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.CardService;
@@ -140,6 +141,7 @@ public class Bank {
 
         DepositService depositService = new DepositService();
         depositService.getDeposits(1);
+        XMLValidation.validateXMLSchema("bank.xsd", "bank.xml");
     }
 
 }

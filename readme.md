@@ -40,4 +40,5 @@ done for lesson 09/06:
  + created CardService and DepositService Classes
  + created XML for classes Client, Deposit, DepositType, Credit,CreditType
  + created XSD schema for XML
+ + validated xml using XSD (created a class XMLValidation)
 
