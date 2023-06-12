@@ -41,4 +41,6 @@ done for lesson 09/06:
  + created XML for classes Client, Deposit, DepositType, Credit,CreditType
  + created XSD schema for XML
  + validated xml using XSD (created a class XMLValidation)
+ + parsed XML using StaX and wrote result into file
+
 
