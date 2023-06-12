@@ -6,19 +6,21 @@ import model.products.Credit;
 import model.products.CreditType;
 import model.products.Deposit;
 import model.products.DepositType;
+import validation.XMLParserStAX;
 import validation.XMLValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.CardService;
 import services.DepositService;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Bank {
-    public static void main(String[] args) throws SQLException, ParseException {
+    public static void main(String[] args) throws SQLException, ParseException, IOException {
         Logger LOGGER = LogManager.getLogger();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilStartDate = dateFormat.parse("2023-01-06");
@@ -142,6 +144,7 @@ public class Bank {
         DepositService depositService = new DepositService();
         depositService.getDeposits(1);
         XMLValidation.validateXMLSchema("bank.xsd", "bank.xml");
+        XMLParserStAX.parserXML();
     }
 
 }
