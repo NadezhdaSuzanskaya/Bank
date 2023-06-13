@@ -15,7 +15,7 @@ Create for your hierarchy:
 + began to create DAO hierarchy
 + created CRUD methods for the class Department
 
-done for lesson 09/06:
+done for the lesson 09/06:
 + created DAO interfaces and classes for hierarchy model
  + for all DAO classes implemented methods: create, remove, getAllElements(), getById(int id)
  + for the class AccountDao  implemented only general methods
@@ -34,7 +34,7 @@ done for lesson 09/06:
  + for the class OperationTypeDao  implemented method getOperationTypeByName()
  + for the class SalaryDao  implemented method updateSalaryByID()
 
- done for lesson 13/06:
+ done for the lesson 13/06:
  + added method getCardByAccountID() on the class CardDao
  + added method getDepositByClientID() on the class DepositDao
  + created CardService and DepositService Classes

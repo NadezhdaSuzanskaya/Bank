@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.*;
 import javax.xml.stream.events.XMLEvent;
 import java.io.File;
@@ -62,10 +63,24 @@ public class XMLParserStAX {
 
                 if (ev.isStartElement()) {
                     currentElement = ev.asStartElement().getName().getLocalPart();
+                    if (currentElement.equals("client")) {
+                        // Get attribute value
+                        idClient = ev.asStartElement().getAttributeByName(new QName("idClient")).getValue();
+                    } else
+                    if (currentElement.equals("creditType")) {
+                        // Get attribute value
+                        idCreditType = ev.asStartElement().getAttributeByName(new QName("idCreditType")).getValue();
+                    }
+                    if (currentElement.equals("depositType")) {
+                        // Get attribute value
+                        idDepositType = ev.asStartElement().getAttributeByName(new QName("idDepositType")).getValue();
+                    }
                     if (currentElement.equals("deposit")) {
+                        idDeposit = ev.asStartElement().getAttributeByName(new QName("idDeposit")).getValue();
                         withinDepositType = true;
                         withinClient = true;
                     } else if (currentElement.equals("credit")) {
+                        idCredit = ev.asStartElement().getAttributeByName(new QName("idCredit")).getValue();
                         withinCreditType = true;
                         withinClient = true;
                     }
@@ -83,14 +98,8 @@ public class XMLParserStAX {
                             case "term":
                                 term = text;
                                 break;
-                            case "idCreditType":
-                                idCreditType = text;
-                                break;
                             case "earalyRepayment":
                                 earlyRepayment = text;
-                                break;
-                            case "idDeposityType":
-                                idDepositType = text;
                                 break;
                             case "replenishment":
                                 replenishment = text;
@@ -98,9 +107,9 @@ public class XMLParserStAX {
                             case "earlywithdrawal":
                                 earlyWithdrawal = text;
                                 break;
-                            case "idDeposit":
-                                idDeposit = text;
-                                break;
+                          //  case "idDeposit":
+                          //      idDeposit = text;
+                          //      break;
                             case "initial_sum":
                                 initial_sum = text;
                                 break;
@@ -109,9 +118,6 @@ public class XMLParserStAX {
                                 break;
                             case "end_date":
                                 end_date = text;
-                                break;
-                            case "idClient":
-                                idClient = text;
                                 break;
                             case "name":
                                 name = text;
@@ -134,9 +140,9 @@ public class XMLParserStAX {
                             case "clientType":
                                 clientType = text;
                                 break;
-                            case "idCredit":
-                                idCredit = text;
-                                break;
+                          //  case "idCredit":
+                         //       idCredit = text;
+                          //      break;
                             case "sum":
                                 sum = text;
                                 break;

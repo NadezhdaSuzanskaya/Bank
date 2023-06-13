@@ -14,9 +14,9 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element type="xs:int" name="idCreditType"/>
                             <xs:element type="xs:boolean" name="earalyRepayment"/>
                         </xs:sequence>
+                        <xs:attribute type="xs:int" name="idCreditType"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="depositType" maxOccurs="unbounded" minOccurs="0">
@@ -31,16 +31,15 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element type="xs:int" name="idDeposityType"/>
                             <xs:element type="xs:boolean" name="replenishment"/>
                             <xs:element type="xs:boolean" name="earlywithdrawal"/>
                         </xs:sequence>
+                        <xs:attribute type="xs:int" name="idDepositType"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="deposit">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:int" name="idDeposit"/>
                             <xs:element type="xs:double" name="initial_sum"/>
                             <xs:element type="xs:date" name="start_date"/>
                             <xs:element type="xs:date" name="end_date"/>
@@ -56,16 +55,15 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element type="xs:int" name="idDeposityType"/>
                                         <xs:element type="xs:boolean" name="replenishment"/>
                                         <xs:element type="xs:boolean" name="earlywithdrawal"/>
                                     </xs:sequence>
+                                    <xs:attribute type="xs:int" name="idDepositType"/>
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="client">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element type="xs:int" name="idClient"/>
                                         <xs:element name="name">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
@@ -98,15 +96,16 @@
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
+                                    <xs:attribute type="xs:int" name="idClient"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
+                        <xs:attribute type="xs:int" name="idDeposit"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="credit" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:int" name="idCredit"/>
                             <xs:element type="xs:double" name="sum"/>
                             <xs:element type="xs:date" name="start_date"/>
                             <xs:element type="xs:date" name="end_date"/>
@@ -122,15 +121,14 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element type="xs:int" name="idCreditType"/>
                                         <xs:element type="xs:boolean" name="earalyRepayment"/>
                                     </xs:sequence>
+                                    <xs:attribute type="xs:int" name="idCreditType"/>
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="client">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element type="xs:int" name="idClient"/>
                                         <xs:element name="name">
                                             <xs:simpleType>
                                                 <xs:restriction base="xs:string">
@@ -163,15 +161,16 @@
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
+                                    <xs:attribute type="xs:int" name="idClient"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
+                        <xs:attribute type="xs:int" name="idCredit"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="client" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:int" name="idClient"/>
                             <xs:element name="name">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
@@ -210,6 +209,7 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
+                        <xs:attribute type="xs:int" name="idClient"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
