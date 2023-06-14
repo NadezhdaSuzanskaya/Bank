@@ -116,9 +116,9 @@ public class ClientTypeDao implements IDaoClientType {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 clientType.setIdClientType(result.getInt("id_client_type"));
-                String jobNameString = result.getString("client_type ").trim();
+                String typeString = result.getString("client_type ").trim();
                 for (ClientTypeName enumValue : ClientTypeName.values()) {
-                    if (enumValue.getClientType().equalsIgnoreCase(jobNameString)) {
+                    if (enumValue.getClientType().equalsIgnoreCase(typeString)) {
                         clientType.setClientType(enumValue);
                         break;
                     }

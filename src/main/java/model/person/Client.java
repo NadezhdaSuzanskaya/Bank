@@ -1,9 +1,18 @@
 package model.person;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="client")
+@XmlSeeAlso(Person.class)
 public class Client extends Person{
+    @XmlAttribute(name="idClient")
     private int idClient;
+    @XmlElement(name="passport")
     private String passport;
+    @XmlElement(name="address")
     private String address;
+    @XmlElement(name="clientType")
     private ClientType clientType;
 
     public Client() {

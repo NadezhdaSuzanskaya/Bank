@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bank>
+    <client idClient="1">
+        <name>Jhon</name>
+        <surname>Do</surname>
+        <passport>NB2323536</passport>
+        <phone>+235354646</phone>
+        <address>NY</address>
+        <clientType idClientType = "1">
+            <clientType>Individual</clientType>
+        </clientType>
+    </client>
+    <client idClient="2">
+        <name>Doris</name>
+        <surname>Kim</surname>
+        <passport>SD4654757</passport>
+        <phone>+747536457</phone>
+        <address>Warsaw</address>
+        <clientType idClientType = "2">
+            <clientType>Individual</clientType>
+        </clientType>
+    </client>
+</bank>

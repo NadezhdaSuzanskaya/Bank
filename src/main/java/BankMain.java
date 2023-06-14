@@ -6,6 +6,7 @@ import model.products.Credit;
 import model.products.CreditType;
 import model.products.Deposit;
 import model.products.DepositType;
+import validation.XMLParserJAXB;
 import validation.XMLParserStAX;
 import validation.XMLValidation;
 import org.apache.logging.log4j.LogManager;
@@ -13,14 +14,19 @@ import org.apache.logging.log4j.Logger;
 import services.CardService;
 import services.DepositService;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
-public class Bank {
-    public static void main(String[] args) throws SQLException, ParseException, IOException {
+public class BankMain {
+    public static void main(String[] args) throws SQLException, ParseException, IOException, JAXBException {
+        String xmlFilePath = "d:/SOLVD/bank/bankTest.xml";
+        String xmlin = "d:/SOLVD/bank/bankT.xml";
+
         Logger LOGGER = LogManager.getLogger();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilStartDate = dateFormat.parse("2023-01-06");
@@ -66,7 +72,7 @@ public class Bank {
         client.create(new Client("TEST_SURNAME", "TEST_NAME", "+564769635",4, "PP6535789","TEST_ADDR", type));
         client.updateClientSurnameByPassport("TEST111", "PP6535789");
         Client cl =  client.getById(2);
-        client.getAllElements();
+        List<Client> clients =client.getAllElements();
         client.remove(4);
 
         CreditTypeDao creditType = new CreditTypeDao();
@@ -144,7 +150,9 @@ public class Bank {
         DepositService depositService = new DepositService();
         depositService.getDeposits(1);
         XMLValidation.validateXMLSchema("bank.xsd", "bank.xml");
-        XMLParserStAX.parserXML();
+        XMLParserStAX.parserXMLUsingStAX();
+        XMLParserJAXB.unmarshallerXML(xmlFilePath);
+      //  XMLParserJAXB.marshallerToXML(clients,xmlin);
     }
 
 }

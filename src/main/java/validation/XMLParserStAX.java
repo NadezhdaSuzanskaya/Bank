@@ -17,7 +17,7 @@ public class XMLParserStAX {
     static Logger LOGGER = LogManager.getLogger();
     static File filein = new File("d:/SOLVD/bank/bank.txt");
 
-    public static String parserXML() throws IOException {
+    public static String parserXMLUsingStAX() throws IOException {
         String xmlFilePath = "d:/SOLVD/bank/bank.xml";
         String stringToFile = "";
         String creditTypeToFile = "";
