@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bank>
     <creditType idCreditType="1">
-        <bankProductType>
             <typeName>HOT</typeName>
             <persent>13</persent>
             <term>18</term>
-        </bankProductType>
         <earalyRepayment>1</earalyRepayment>
     </creditType>
     <creditType idCreditType="2">
-        <bankProductType>
             <typeName>BUY_CAR</typeName>
             <persent>15</persent>
             <term>24</term>
-        </bankProductType>
         <earalyRepayment>0</earalyRepayment>
     </creditType>
     <depositType idDepositType="1">
-        <bankProductType>
             <typeName>START</typeName>
             <persent>5</persent>
             <term>36</term>
-        </bankProductType>
         <replenishment>1</replenishment>
         <earlywithdrawal>0</earlywithdrawal>
     </depositType>
     <depositType idDepositType="2">
-        <bankProductType>
             <typeName>SUMMER</typeName>
             <persent>57</persent>
             <term>3</term>
-        </bankProductType>
         <replenishment>1</replenishment>
         <earlywithdrawal>1</earlywithdrawal>
     </depositType>
@@ -39,11 +31,9 @@
         <start_date>2023-05-25</start_date>
         <end_date>2023-08-25</end_date>
         <depositType idDepositType="1">
-            <bankProductType>
                 <typeName>START</typeName>
                 <persent>5</persent>
                 <term>36</term>
-            </bankProductType>
             <replenishment>1</replenishment>
             <earlywithdrawal>0</earlywithdrawal>
         </depositType>
@@ -64,11 +54,9 @@
         <start_date>2023-06-01</start_date>
         <end_date>2024-06-30</end_date>
         <creditType idCreditType="1">
-            <bankProductType>
                 <typeName>HOT</typeName>
                 <persent>13</persent>
                 <term>18</term>
-            </bankProductType>
             <earalyRepayment>1</earalyRepayment>
         </creditType>
         <client idClient="2">
@@ -88,11 +76,9 @@
         <start_date>2024-01-06</start_date>
         <end_date>2024-06-30</end_date>
         <creditType idCreditType="2">
-            <bankProductType>
                 <typeName>BUY_CAR</typeName>
                 <persent>15</persent>
                 <term>24</term>
-            </bankProductType>
             <earalyRepayment>0</earalyRepayment>
         </creditType>
         <client idClient="1">

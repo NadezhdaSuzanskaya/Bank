@@ -37,8 +37,8 @@ public class XMLParserJAXB {
                 int idClientType = client.getClientType().getIdClientType();
                 String clientTypeName = client.getClientType().getClientType().getClientType();
 
-                LOGGER.info("Client ID: " + idClient +"Name: " + name+"Surname: " + surname+"Passport: " + passport+
-                            "Phone: " + phone+"Address: " + address+"Client Type ID: " + idClientType+"Client Type: " + clientTypeName);
+                LOGGER.info("Client ID: " + idClient +" Name: " + name+" Surname: " + surname+" Passport: " + passport+
+                            " Phone: " + phone+" Address: " + address+" Client Type ID: " + idClientType+" Client Type: " + clientTypeName);
             }
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();

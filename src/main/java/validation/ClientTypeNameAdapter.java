@@ -4,7 +4,7 @@ import model.enums.ClientTypeName;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class ClientTypeNameAdapter extends XmlAdapter<String, ClientTypeName> {
+public class ClientTypeNameAdapter extends  XmlAdapter<String, ClientTypeName> {
 
     @Override
     public ClientTypeName unmarshal(String value) {

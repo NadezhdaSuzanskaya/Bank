@@ -43,4 +43,7 @@ done for the lesson 09/06:
  + validated xml using XSD (created a class XMLValidation)
  + parsed XML using StaX and wrote result into file
 
+ done for the lesson 16/06:
+ +  Parse XML for Clients using JAXB
+ + created JSON for for classes Client, Deposit, DepositType, Credit,CreditType
 

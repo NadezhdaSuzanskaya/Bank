@@ -1,0 +1,28 @@
+{
+  "bank": {
+    "clients": [
+      {"idClient": 1,
+        "name": "Jhon",
+        "surname": "Do",
+        "passport": "NB2323536",
+        "phone": 235354646,
+        "address": "NY",
+        "clientType": {
+          "idClientType": 1,
+          "clientType": "Individual"
+        }
+      },
+      {"idClient": 2,
+        "name": "Doris",
+        "surname": "Kim",
+        "passport": "SD4654757",
+        "phone": 747536457,
+        "address": "Warsaw",
+        "clientType": {
+          "idClientType": 1,
+          "clientType": "Individual"
+        }
+      }
+    ]
+  }
+}

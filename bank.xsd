@@ -5,15 +5,9 @@
                 <xs:element name="creditType" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="bankProductType">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element type="xs:string" name="typeName"/>
-                                        <xs:element type="xs:double" name="persent"/>
-                                        <xs:element type="xs:int" name="term"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element type="xs:string" name="typeName"/>
+                            <xs:element type="xs:double" name="persent"/>
+                            <xs:element type="xs:int" name="term"/>
                             <xs:element type="xs:boolean" name="earalyRepayment"/>
                         </xs:sequence>
                         <xs:attribute type="xs:int" name="idCreditType"/>
@@ -22,15 +16,9 @@
                 <xs:element name="depositType" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="bankProductType">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element type="xs:string" name="typeName"/>
-                                        <xs:element type="xs:double" name="persent"/>
-                                        <xs:element type="xs:int" name="term"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element type="xs:string" name="typeName"/>
+                            <xs:element type="xs:double" name="persent"/>
+                            <xs:element type="xs:int" name="term"/>
                             <xs:element type="xs:boolean" name="replenishment"/>
                             <xs:element type="xs:boolean" name="earlywithdrawal"/>
                         </xs:sequence>
@@ -46,15 +34,9 @@
                             <xs:element name="depositType">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="bankProductType">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="typeName"/>
-                                                    <xs:element type="xs:double" name="persent"/>
-                                                    <xs:element type="xs:int" name="term"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
+                                        <xs:element type="xs:string" name="typeName"/>
+                                        <xs:element type="xs:double" name="persent"/>
+                                        <xs:element type="xs:int" name="term"/>
                                         <xs:element type="xs:boolean" name="replenishment"/>
                                         <xs:element type="xs:boolean" name="earlywithdrawal"/>
                                     </xs:sequence>
@@ -112,15 +94,9 @@
                             <xs:element name="creditType">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="bankProductType">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element type="xs:string" name="typeName"/>
-                                                    <xs:element type="xs:double" name="persent"/>
-                                                    <xs:element type="xs:int" name="term"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
+                                        <xs:element type="xs:string" name="typeName"/>
+                                        <xs:element type="xs:double" name="persent"/>
+                                        <xs:element type="xs:int" name="term"/>
                                         <xs:element type="xs:boolean" name="earalyRepayment"/>
                                     </xs:sequence>
                                     <xs:attribute type="xs:int" name="idCreditType"/>

@@ -6,6 +6,7 @@ import model.products.Credit;
 import model.products.CreditType;
 import model.products.Deposit;
 import model.products.DepositType;
+import validation.JSONParser;
 import validation.XMLParserJAXB;
 import validation.XMLParserStAX;
 import validation.XMLValidation;
@@ -15,6 +16,7 @@ import services.CardService;
 import services.DepositService;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -26,7 +28,8 @@ public class BankMain {
     public static void main(String[] args) throws SQLException, ParseException, IOException, JAXBException {
         String xmlFilePath = "d:/SOLVD/bank/bankTest.xml";
         String xmlin = "d:/SOLVD/bank/bankT.xml";
-
+        String jsonin = "d:/SOLVD/bank/bankT.json";
+        File fileoutJSON = new File("d:/SOLVD/bank/bankTest.json");
         Logger LOGGER = LogManager.getLogger();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilStartDate = dateFormat.parse("2023-01-06");
@@ -152,7 +155,10 @@ public class BankMain {
         XMLValidation.validateXMLSchema("bank.xsd", "bank.xml");
         XMLParserStAX.parserXMLUsingStAX();
         XMLParserJAXB.unmarshallerXML(xmlFilePath);
-      //  XMLParserJAXB.marshallerToXML(clients,xmlin);
+        XMLParserJAXB.marshallerToXML(clients,xmlin);
+        JSONParser.serialized(clients,jsonin);
+        JSONParser.deserialized(fileoutJSON);
+
     }
 
 }
