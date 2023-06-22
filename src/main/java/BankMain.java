@@ -1,4 +1,6 @@
 import dao.mysql.*;
+import mapper.DepartmentMapper;
+import mapper.JobTitleMapper;
 import model.account.*;
 import model.enums.*;
 import model.person.*;
@@ -6,6 +8,10 @@ import model.products.Credit;
 import model.products.CreditType;
 import model.products.Deposit;
 import model.products.DepositType;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.*;
+import org.mybatis.dynamic.sql.render.RenderingStrategies;
+import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import validation.JSONParser;
 import validation.XMLParserJAXB;
 import validation.XMLParserStAX;
@@ -18,6 +24,8 @@ import services.DepositService;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -25,12 +33,13 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class BankMain {
+
     public static void main(String[] args) throws SQLException, ParseException, IOException, JAXBException {
-        String xmlFilePath = "d:/SOLVD/bank/bankTest.xml";
+        Logger LOGGER = LogManager.getLogger();
+   /*     String xmlFilePath = "d:/SOLVD/bank/bankTest.xml";
         String xmlin = "d:/SOLVD/bank/bankT.xml";
         String jsonin = "d:/SOLVD/bank/bankT.json";
         File fileoutJSON = new File("d:/SOLVD/bank/bankTest.json");
-        Logger LOGGER = LogManager.getLogger();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilStartDate = dateFormat.parse("2023-01-06");
         java.util.Date utilEndDate = dateFormat.parse("2023-06-30");
@@ -158,7 +167,39 @@ public class BankMain {
         XMLParserJAXB.marshallerToXML(clients,xmlin);
         JSONParser.serialized(clients,jsonin);
         JSONParser.deserialized(fileoutJSON);
+*/
+        try (InputStream inputStream = Resources.getResourceAsStream("myBatis.config.xml");
+             SqlSession sqlSession = new SqlSessionFactoryBuilder().build(inputStream).openSession()) {
+            DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
+            Department dep = departmentMapper.selectDepartmentById(1);
+            LOGGER.info("id: " + dep.getIdDepartment() + " dep name: " + dep.getDepartmentName() + " dep address: " + dep.getDepartmentAddress());
+
+            Department dep2 = new Department(5, "Test_name", "Test_address");
+            departmentMapper.insertIntoDepartment(dep2);
+            sqlSession.commit();
+
+            departmentMapper.deleteFromDepartmentByID(5);
+            sqlSession.commit();
+
+            departmentMapper.updateDepartmentByID("TEST", 5);
+            LOGGER.info("Department updated successfully");
+            sqlSession.commit();
+
+            JobTitleMapper jobTitleMapper = sqlSession.getMapper(JobTitleMapper.class);
+            JobTitle jobTitle = jobTitleMapper.selectJobTitleById(1);
+
+             LOGGER.info("id: " + jobTitle.getIdJobTitle()+ "job title name: " + jobTitle.getJobName().getEmployeeJobTitle());
+
+            jobTitleMapper.insertIntoJobTitle(new JobTitle(5,EmployeeJobTitle.ACCOUNTANT));
+             sqlSession.commit();
+
+            jobTitleMapper.updateJobTitleByID(EmployeeJobTitle.TRAINEE.getEmployeeJobTitle(), 5);
+            LOGGER.info("Job Title updated successfully");
+            sqlSession.commit();
+
+            jobTitleMapper.deleteFromJobTitleByID(6);
+            sqlSession.commit();
+        }
 
     }
-
 }

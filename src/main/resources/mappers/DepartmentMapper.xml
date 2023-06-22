@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.DepartmentMapper">
+    <select id="selectDepartmentById" resultMap="mapper.DepartmentMapper.departmentResultMap">
+        select *  from department where id_department = #{id}
+    </select>
+
+    <insert id="insertIntoDepartment" >
+        insert into department (id_department, name, address) values (#{idDepartment},#{departmentName},#{departmentAddress})
+    </insert>
+
+    <delete id="deleteFromDepartmentByID" >
+         delete from department where id_department = #{id}
+    </delete>
+
+    <update id="updateDepartmentByID" parameterType="java.util.Map">
+        update department SET name = #{name}
+        where id_department = #{id}
+    </update>
+
+    <resultMap id="departmentResultMap" type="model.person.Department" autoMapping="false">
+        <id property="idDepartment" column="id_department"/>
+        <result property="departmentName" column="name"/>
+        <result property="departmentAddress" column="address"/>
+    </resultMap>
+</mapper>

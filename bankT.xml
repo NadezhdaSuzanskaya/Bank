@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bank>
+    <client idClient="1">
+        <name>Jhon</name>
+        <surname>Do</surname>
+        <phone>+235354646</phone>
+        <passport>NB2323536</passport>
+        <address>NY</address>
+        <clientType idClientType="1">
+            <clientType>individual</clientType>
+        </clientType>
+    </client>
+    <client idClient="2">
+        <name>Doris</name>
+        <surname>Kim</surname>
+        <phone>+747536457</phone>
+        <passport>SD4654757</passport>
+        <address>Warsaw</address>
+        <clientType idClientType="1">
+            <clientType>individual</clientType>
+        </clientType>
+    </client>
+    <client idClient="3">
+        <name>Alex</name>
+        <surname>Lord</surname>
+        <phone>+7657354657</phone>
+        <passport>QW87677777</passport>
+        <address>Oslo</address>
+        <clientType idClientType="1">
+            <clientType>individual</clientType>
+        </clientType>
+    </client>
+    <client idClient="4">
+        <name>TEST_NAME</name>
+        <surname>TEST111</surname>
+        <phone>+564769635</phone>
+        <passport>PP6535789</passport>
+        <address>TEST_ADDR</address>
+        <clientType idClientType="1">
+            <clientType>individual</clientType>
+        </clientType>
+    </client>
+</bank>

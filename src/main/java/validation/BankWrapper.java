@@ -1,7 +1,6 @@
 package validation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.Bank;
 
 public class BankWrapper {
     @JsonProperty("bank")

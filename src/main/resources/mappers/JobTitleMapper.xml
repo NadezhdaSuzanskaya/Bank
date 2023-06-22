@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.JobTitleMapper">
+    <resultMap id="jobTitleResultMap" type="model.person.JobTitle" autoMapping="false">
+        <id property="idJobTitle" column="id_job_title"/>
+        <result property="jobName" column="name" typeHandler="mapper.EmployeeJobTitleTypeHandler"/>
+    </resultMap>
+
+    <select id="selectJobTitleById" resultMap="jobTitleResultMap">
+        select * from job_title where id_job_title = #{id}
+    </select>
+
+    <insert id="insertIntoJobTitle">
+        insert into job_title (id_job_title, name) values (#{idJobTitle},#{jobName})
+    </insert>
+
+    <delete id="deleteFromJobTitleByID" >
+        delete from job_title where  id_job_title = #{id}
+    </delete>
+
+    <update id="updateJobTitleByID" parameterType="java.util.Map">
+        update job_title SET name = #{name}
+        where id_job_title = #{id}
+    </update>
+</mapper>

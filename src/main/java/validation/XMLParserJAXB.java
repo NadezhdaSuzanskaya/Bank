@@ -1,9 +1,6 @@
 package validation;
 
-import model.Bank;
-import model.enums.ClientTypeName;
 import model.person.Client;
-import model.person.ClientType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +8,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLEventWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
